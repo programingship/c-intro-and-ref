@@ -1,4 +1,4 @@
-name: make-epub
+name: deploy-pages
 
 on:
   push:
