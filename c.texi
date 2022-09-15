@@ -11,6 +11,7 @@
 @settitle GNU C Language Manual
 @documentencoding UTF-8
 
+@c Merge variable index into the function index.
 @synindex vr fn
 
 @copying
@@ -37,8 +38,6 @@ modify this GNU manual.''
 @direntry
 * C: (c).       GNU C Language Intro and Reference Manual
 @end direntry
-
-@documentencoding UTF-8
 
 @titlepage
 @sp 6
@@ -186,7 +185,7 @@ Please report errors and suggestions to c-manual@@gnu.org.
 * Arrays::                        Creating and manipulating arrays.
 * Enumeration Types::             Sets of integers with named values.
 * Defining Typedef Names::        Using @code{typedef} to define type names.
-* Statements::                    Controling program flow.
+* Statements::                    Controlling program flow.
 * Variables::                     Details about declaring, initializing,
                                     and using variables.
 * Type Qualifiers::               Mark variables for certain intended uses.
@@ -279,9 +278,9 @@ Order of Execution
 * Reordering of Operands::       Operations in C are not necessarily computed
                                    in the order they are written.
 * Associativity and Ordering::   Some associative operations are performed
-                                   in a particular order; others are not.     
+                                   in a particular order; others are not.
 * Sequence Points::              Some guarantees about the order of operations.
-* Postincrement and Ordering::   Ambiguous excution order with postincrement.
+* Postincrement and Ordering::   Ambiguous execution order with postincrement.
 * Ordering of Operands::         Evaluation order of operands
                                    and function arguments.
 * Optimization and Ordering::    Compiler optimizations can reorder operations
@@ -297,7 +296,7 @@ Primitive Data Types
 
 Constants
 
-* Integer Constants::            Literal integer values.                   
+* Integer Constants::            Literal integer values.
 * Integer Const Type::           Types of literal integer values.
 * Floating Constants::           Literal floating-point values.
 * Imaginary Constants::          Literal imaginary number values.
@@ -324,7 +323,7 @@ Pointers
 * Pointer Comparison::           Comparing memory address values.
 * Pointer Arithmetic::           Computing memory address values.
 * Pointers and Arrays::          Using pointer syntax instead of array syntax.
-* Pointer Arithmetic Low Level:: More about computing memory address values.
+* Low-Level Pointer Arithmetic:: More about computing memory address values.
 * Pointer Increment/Decrement::  Incrementing and decrementing pointers.
 * Pointer Arithmetic Drawbacks:: A common pointer bug to watch out for.
 * Pointer-Integer Conversion::   Converting pointer types to integer types.
@@ -344,7 +343,7 @@ Structures
 * const Fields::                 Making structure fields immutable.
 * Zero Length::                  Zero-length array as a variable-length object.
 * Flexible Array Fields::        Another approach to variable-length objects.
-* Overlaying Structures::        Casting one structure type 
+* Overlaying Structures::        Casting one structure type
                                    over an object of another structure type.
 * Structure Assignment::         Assigning values to structure objects.
 * Unions::                       Viewing the same object in different types.
@@ -355,7 +354,7 @@ Structures
 * Structure Constructors::       Building new structure objects.
 * Unnamed Types as Fields::      Fields' types do not always need names.
 * Incomplete Types::             Types which have not been fully defined.
-* Intertwined Incomplete Types:: Defining mutually-recursive structue types.
+* Intertwined Incomplete Types:: Defining mutually-recursive structure types.
 * Type Tags::                    Scope of structure and union type tags.
 
 Arrays
@@ -392,7 +391,7 @@ Statements
 Variables
 
 * Variable Declarations::        Name a variable and and reserve space for it.
-* Initializers::                 Assigning inital values to variables.
+* Initializers::                 Assigning initial values to variables.
 * Designated Inits::             Assigning initial values to array elements
                                    at particular array indices.
 * Auto Type::                    Obtaining the type of a variable.
@@ -446,7 +445,7 @@ Preprocessing
 * Preprocessing Tokens::         The lexical elements of preprocessing.
 * Header Files::                 Including one source file in another.
 * Macros::                       Macro expansion by the preprocessor.
-* Conditionals::                 Controling whether to compile some lines
+* Conditionals::                 Controlling whether to compile some lines
                                    or ignore them.
 * Diagnostics::                  Reporting warnings and errors.
 * Line Control::                 Reporting source line numbers.
@@ -486,8 +485,8 @@ Floating Point in Depth
 
 Directing Compilation
 
-* Pragmas::                      Controling compilation of some constructs.
-* Static Assertions::            Compile-time tests for conditions.    
+* Pragmas::                      Controlling compilation of some constructs.
+* Static Assertions::            Compile-time tests for conditions.
 
 @end detailmenu
 @end menu
@@ -1110,7 +1109,7 @@ fib (int n)             /* @r{Its name is @code{fib};}  */
   if (n <= 2)           /* @r{If @code{n} is 1 or 2,}  */
     return 1;           /*   @r{make @code{fib} return 1.}  */
   else                  /* @r{otherwise, add the two previous}  */
-                        /* @r{fibonacci numbers.}  */
+                        /* @r{Fibonacci numbers.}  */
     return fib (n - 1) + fib (n - 2);
 @}
 
@@ -1925,7 +1924,7 @@ nonnegative numbers; its range starts with zero and runs upward.
 
 The most basic integer types are @code{int}, which normally can hold
 numbers from @minus{}2,147,483,648 to 2,147,483,647, and @code{unsigned
-int}, which normally can hold numbers from 0 to 4,294.967,295.  (This
+int}, which normally can hold numbers from 0 to 4,294,967,295.  (This
 assumes @code{int} is 32 bits wide, always true for GNU C on real
 computers but not always on embedded controllers.)  @xref{Integer
 Types}, for full information about integer types.
@@ -1979,8 +1978,8 @@ Depth}).  Thus, the unary @samp{-} operator on a signed integer can
 overflow.
 
 @menu
-* Unsigned Overflow::           Overlow in unsigned integer arithmetic.
-* Signed Overflow::             Overlow in signed integer arithmetic.
+* Unsigned Overflow::           Overflow in unsigned integer arithmetic.
+* Signed Overflow::             Overflow in signed integer arithmetic.
 @end menu
 
 @node Unsigned Overflow
@@ -3305,7 +3304,7 @@ This means that @w{@code{a @var{op} b @var{op} c}} means @w{@code{(a
 @var{op} b) @var{op} c}}.  However, the only operators you should
 repeat in this way without parentheses are @samp{+}, @samp{-},
 @samp{*} and @samp{/}, because those cases are clear from algebra.  So
-it is ok to write @code{a + b + c} or @code{a - b - c}, but never
+it is OK to write @code{a + b + c} or @code{a - b - c}, but never
 @code{a == b == c} or @code{a % b % c}.  For those operators, use
 explicit parentheses to show how the operations nest.
 
@@ -3404,9 +3403,9 @@ necessarily predictable.  This chapter describes what you can count on.
 * Reordering of Operands::       Operations in C are not necessarily computed
                                    in the order they are written.
 * Associativity and Ordering::   Some associative operations are performed
-                                   in a particular order; others are not.     
+                                   in a particular order; others are not.
 * Sequence Points::              Some guarantees about the order of operations.
-* Postincrement and Ordering::   Ambiguous excution order with postincrement.
+* Postincrement and Ordering::   Ambiguous execution order with postincrement.
 * Ordering of Operands::         Evaluation order of operands
                                    and function arguments.
 * Optimization and Ordering::    Compiler optimizations can reorder operations
@@ -3920,7 +3919,7 @@ C has three floating-point data types:
 ``Double-precision'' floating point, which uses 64 bits.  This is the
 normal floating-point type, and modern computers normally do
 their floating-point computations in this type, or some wider type.
-Except when there is a special reason to do otherwise, this is the 
+Except when there is a special reason to do otherwise, this is the
 type to use for floating-point values.
 
 @item float
@@ -3931,7 +3930,7 @@ addition, single-precision arithmetic is faster on some computers, and
 occasionally that is useful.  But not often---most programs don't use
 the type @code{float}.
 
-C would be cleaner if @code{float} were the name of the type we 
+C would be cleaner if @code{float} were the name of the type we
 use for most floating-point values; however, for historical reasons,
 that's not so.
 
@@ -4680,7 +4679,7 @@ constant.  Their types are, respectively, @code{char16_t} and
 inconvenient without including it to declare those type names.
 
 The character represented in a wide character constant can be an
-ordinary ASCII character.  @code{L'a'}, @code{u'a'} and @code{U'a'} 
+ordinary ASCII character.  @code{L'a'}, @code{u'a'} and @code{U'a'}
 are all valid, and they are all equal to @code{'a'}.
 
 In all three kinds of wide character constants, you can write a
@@ -4845,12 +4844,17 @@ Names}.
 @chapter Pointers
 @cindex pointers
 
-Among high-level languages, C is rather low level, close to the
+Among high-level languages, C is rather low-level, close to the
 machine.  This is mainly because it has explicit @dfn{pointers}.  A
 pointer value is the numeric address of data in memory.  The type of
 data to be found at that address is specified by the data type of the
-pointer itself.  The unary operator @samp{*} gets the data that a
-pointer points to---this is called @dfn{dereferencing the pointer}.
+pointer itself.  Nothing in C can determine the ``correct'' data type
+of data in memory; it can only blindly follow the data type of the
+pointer you use to access the data.
+
+The unary operator @samp{*} gets the data that a pointer points
+to---this is called @dfn{dereferencing the pointer}.  Its value
+always has the type that the pointer points to.
 
 C also allows pointers to functions, but since there are some
 differences in how they work, we treat them later.  @xref{Function
@@ -4868,7 +4872,7 @@ Pointers}.
 * Pointer Comparison::           Comparing memory address values.
 * Pointer Arithmetic::           Computing memory address values.
 * Pointers and Arrays::          Using pointer syntax instead of array syntax.
-* Pointer Arithmetic Low Level:: More about computing memory address values.
+* Low-Level Pointer Arithmetic:: More about computing memory address values.
 * Pointer Increment/Decrement::  Incrementing and decrementing pointers.
 * Pointer Arithmetic Drawbacks:: A common pointer bug to watch out for.
 * Pointer-Integer Conversion::   Converting pointer types to integer types.
@@ -4960,9 +4964,11 @@ double *aptrd[5];     /* @r{Array of five pointers to @code{double}.} */
 @end example
 
 @noindent
-Because @samp{*} has higher syntactic precedence than subscripting,
-you would subscript @code{aptrd} then dereference it.  Therefore, it
-declares an array of pointers, not a pointer.
+Because @samp{*} has lower syntactic precedence than subscripting,
+@samp{double *aptrd[5]} means, ``if you subscript @code{aptrd} by an
+integer less than 5, then dereference it, you get a @code{double}.''
+Therefore, @code{*aptrd[5]} declares an array of pointers, not a
+pointer to an array.
 
 @node Pointer Type Designators
 @section Pointer-Type Designators
@@ -4979,10 +4985,12 @@ double (*)[5]   /* @r{Pointer to @code{double[5]}.} */
 @end example
 
 Remember, to understand what type a designator stands for, imagine the
-variable name that would be in the declaration, and figure out what
-type it would declare that variable with.  @code{double (*)[5]} can
-only come from @code{double (*@var{variable})[5]}, so it's a pointer
+corresponding variable declaration with a variable name in it, and
+figure out what type that variable would have.  Thus, the type
+designator @code{double (*)[5]} corresponds to the variable declaration
+@code{double (*@var{variable})[5]}.  That deciares a pointer variable
 which, when dereferenced, gives an array of 5 @code{double}s.
+So the type designator means, ``pointer to an array of 5 @code{double}s.''
 
 @node Pointer Dereference
 @section Dereferencing Pointers
@@ -5011,7 +5019,7 @@ them later.  Here's a simple example to illustrate the practice:
   i = 5;
 
   @r{@dots{}}
-  
+
   return *ptr;   /* @r{Returns 5, fetched from @code{i}.}  */
 @}
 @end example
@@ -5186,7 +5194,7 @@ extract_int_or_double (void *ptr, bool its_an_int)
 @{
   if (its_an_int)
     handle_an_int (*(int *)ptr);
-  else 
+  else
     handle_a_double (*(double *)ptr);
 @}
 @end example
@@ -5232,10 +5240,10 @@ If one of the operands is @code{void *} (@pxref{Void Pointers}) and
 the other is another pointer type, the comparison operator converts
 the @code{void *} pointer to the other type so as to compare them.
 (In standard C, this is not allowed if the other type is a function
-pointer type, but that works in GNU C@.)
+pointer type, but it works in GNU C@.)
 
 Comparison operators also allow comparing the integer 0 with a pointer
-value.  Thus works by converting 0 to a null pointer of the same type
+value.  This works by converting 0 to a null pointer of the same type
 as the other operand.
 
 @node Pointer Arithmetic
@@ -5331,10 +5339,10 @@ subtract_pointers ()
 @}
 @end example
 
-The addition operation does not know where arrays are.  All it does is
-add the integer (multiplied by object size) to the value of the
-pointer.  When the initial pointer and the result point into a single
-array, the result is well-defined.
+The addition operation does not know where arrays begin or end in
+memory.  All it does is add the integer (multiplied by target object
+size) to the numeric value of the pointer.  When the initial pointer
+and the result point into the same array, the result is well-defined.
 
 @strong{Warning:} Only experts should do pointer arithmetic involving pointers
 into different memory objects.
@@ -5344,15 +5352,18 @@ The difference between two pointers has type @code{int}, or
 declare it is to use the typedef name @code{ptrdiff_t} defined in the
 file @file{stddef.h}.
 
-This definition of pointer subtraction is consistent with
-pointer-integer addition, in that @code{(p3 - p1) + p1} equals
-@code{p3}, as in ordinary algebra.
+C defines pointer subtraction to be consistent with pointer-integer
+addition, so that @code{(p3 - p1) + p1} equals @code{p3}, as in
+ordinary algebra.  Pointer subtraction works by subtracting
+@code{p1}'s numeric value from @code{p3}'s, and dividing by target
+object size.  The two pointer arguments should point into the same
+array.
 
 In standard C, addition and subtraction are not allowed on @code{void
 *}, since the target type's size is not defined in that case.
 Likewise, they are not allowed on pointers to function types.
 However, these operations work in GNU C, and the ``size of the target
-type'' is taken as 1.
+type'' is taken as 1 byte.
 
 @node Pointers and Arrays
 @section Pointers and Arrays
@@ -5374,26 +5385,26 @@ symmetrically, so one must be a pointer and the other an integer; it
 does not matter which comes first.
 
 Since indexing with square brackets is defined in terms of addition
-and dereference, that too is symmetrical.  Thus, you can write
+and dereferencing, that too is symmetrical.  Thus, you can write
 @code{3[array]} and it is equivalent to @code{array[3]}.  However, it
 would be foolish to write @code{3[array]}, since it has no advantage
 and could confuse people who read the code.
 
 It may seem like a discrepancy that the definition @code{*(@var{a} +
-@var{b})} requires a pointer, but @code{array[3]} uses an array value
+@var{b})} requires a pointer, while @code{array[3]} uses an array value
 instead.  Why is this valid?  The name of the array, when used by
 itself as an expression (other than in @code{sizeof}), stands for a
-pointer to the arrays's zeroth element.  Thus, @code{array + 3}
+pointer to the array's zeroth element.  Thus, @code{array + 3}
 converts @code{array} implicitly to @code{&array[0]}, and the result
 is a pointer to element 3, equivalent to @code{&array[3]}.
 
-Since square brackets are defined in terms of such addition,
+Since square brackets are defined in terms of such an addition,
 @code{array[3]} first converts @code{array} to a pointer.  That's why
 it works to use an array directly in that construct.
 
-@node Pointer Arithmetic Low Level
-@section Pointer Arithmetic at Low Level
-@cindex pointer arithmetic, low level
+@node Low-Level Pointer Arithmetic
+@section Pointer Arithmetic at Low-Level
+@cindex pointer arithmetic, low-level
 @cindex low level pointer arithmetic
 
 The behavior of pointer arithmetic is theoretically defined only when
@@ -5407,7 +5418,8 @@ address, which is in fact an integer---call it @var{pint}.  It treats
 @var{i} as a number of elements of the type that @var{p} points to.
 These elements' sizes add up to @code{@var{i} * sizeof (*@var{p})}.
 So the sum, as an integer, is @code{@var{pint} + @var{i} * sizeof
-(*@var{p})}.  This value is reinterpreted as a pointer like @var{p}.
+(*@var{p})}.  This value is reinterpreted as a pointer of the same
+type as @var{p}.
 
 If the starting pointer value @var{p} and the result do not point at
 parts of the same object, the operation is not officially legitimate,
@@ -5448,7 +5460,8 @@ long} would always work, but it is cleaner to use @code{intptr_t}.)
 The @samp{++} operator adds 1 to a variable.  We have seen it for
 integers (@pxref{Increment/Decrement}), but it works for pointers too.
 For instance, suppose we have a series of positive integers,
-terminated by a zero, and we want to add them all up.
+terminated by a zero, and we want to add them up.  Here is a simple
+way to step forward through the array by advancing a pointer.
 
 @example
 int
@@ -5481,12 +5494,12 @@ takes precedence over a prefix operator.  Therefore, it dereferences
 @code{p}, and increments @code{p} afterwards.  Incrementing a variable
 means adding 1 to it, as in @code{p = p + 1}.  Since @code{p} is a
 pointer, adding 1 to it advances it by the width of the datum it
-points to---in this case, one @code{int}.  Therefore, each iteration
+points to---in this case, @code{sizeof (int)}.  Therefore, each iteration
 of the loop picks up the next integer from the series and puts it into
 @code{next}.
 
 This @code{for}-loop has no initialization expression since @code{p}
-and @code{sum} are already initialized, it has no end-test since the
+and @code{sum} are already initialized, has no end-test since the
 @samp{break;} statement will exit it, and needs no expression to
 advance it since that's done within the loop by incrementing @code{p}
 and @code{sum}.  Thus, those three expressions after @code{for} are
@@ -5522,11 +5535,11 @@ and add it to @code{p}.  (Recall that @code{p[i]} means @code{*(p +
 i)}.)  Either way, it uses the same address to get the next integer.
 
 It makes no difference in this program whether we write @code{i++} or
-@code{++i}, because the value is not used.  All that matters is the
-effect, to increment @code{i}.
+@code{++i}, because the value @emph{of that expression} is not used.
+We use it for its effect, to increment @code{i}.
 
 The @samp{--} operator also works on pointers; it can be used
-to scan backwards through an array, like this:
+to step backwards through an array, like this:
 
 @example
 int
@@ -5561,10 +5574,10 @@ memory.  However, if you unintentionally adjust a pointer across the
 bounds of the object and into some other object, the system has no way
 to detect this error.
 
-A bug which does that can easily result in clobbering part of another
-object.  For example, with @code{array[-1]} you can read or write the
-nonexistent element before the beginning of an array---probably part
-of some other data.
+A bug which does that can easily result in clobbering (overwriting)
+part of another object.  For example, with @code{array[-1]} you can
+read or write the nonexistent element before the beginning of an
+array---probably part of some other data.
 
 Combining pointer arithmetic with casts between pointer types, you can
 create a pointer that fails to be properly aligned for its type.  For
@@ -5751,7 +5764,7 @@ GNU C does not require this.
 * const Fields::                 Making structure fields immutable.
 * Zero Length::                  Zero-length array as a variable-length object.
 * Flexible Array Fields::        Another approach to variable-length objects.
-* Overlaying Structures::        Casting one structure type 
+* Overlaying Structures::        Casting one structure type
                                    over an object of another structure type.
 * Structure Assignment::         Assigning values to structure objects.
 * Unions::                       Viewing the same object in different types.
@@ -5762,7 +5775,7 @@ GNU C does not require this.
 * Structure Constructors::       Building new structure objects.
 * Unnamed Types as Fields::      Fields' types do not always need names.
 * Incomplete Types::             Types which have not been fully defined.
-* Intertwined Incomplete Types:: Defining mutually-recursive structue types.
+* Intertwined Incomplete Types:: Defining mutually-recursive structure types.
 * Type Tags::                    Scope of structure and union type tags.
 @end menu
 
@@ -6689,7 +6702,7 @@ definition for the structure type.
 
 When several structure types contain pointers to each other, you can
 define the types in any order because pointers to types that come
-later are incomplete types.  Thus, 
+later are incomplete types.  Thus,
 Here is an example.
 
 @example
@@ -6709,7 +6722,7 @@ struct employee_list
   struct employee_list *next;  /* @r{incomplete type.}  */
   @r{@dots{}}
 @};
-  
+
 /* @r{A group points to one employee_list.}  */
 struct group
 @{
@@ -7147,7 +7160,7 @@ pointer to the array's element at index zero.  The code can operate
 on the pointer, and through that on individual elements of the array,
 but it can't get and operate on the array as a unit.
 
-There are three exceptions to this conversion rule, but none of them 
+There are three exceptions to this conversion rule, but none of them
 offers a way to operate on the array as a whole.
 
 First, @samp{&} applied to an expression with array type gives you the
@@ -8891,7 +8904,7 @@ their values for the whole execution of the program.
 
 @menu
 * Variable Declarations::        Name a variable and and reserve space for it.
-* Initializers::                 Assigning inital values to variables.
+* Initializers::                 Assigning initial values to variables.
 * Designated Inits::             Assigning initial values to array elements
                                    at particular array indices.
 * Auto Type::                    Obtaining the type of a variable.
@@ -10721,7 +10734,7 @@ Since the data type of @code{binary_op} explicitly specifies type
 
 The call conceptually dereferences the pointer @code{binary_op} to
 ``get'' the function it points to, and calls that function.  If you
-wish, you can explicitly represent the derefence by writing the
+wish, you can explicitly represent the dereference by writing the
 @code{*} operator:
 
 @example
@@ -11182,7 +11195,7 @@ other declarations and statements in the block.
 The nested function's name is visible only within the parent block;
 the name's scope starts from its definition and continues to the end
 of the containing block.  If the nested function's name
-is the same as the parent function's name, there wil be
+is the same as the parent function's name, there will be
 no way to refer to the parent function inside the scope of the
 name of the nested function.
 
@@ -11302,13 +11315,13 @@ struct list
 inline struct list *
 list_first (struct list *p)
 @{
-  return p->first;  
+  return p->first;
 @}
 
 inline struct list *
 list_second (struct list *p)
 @{
-  return p->second;  
+  return p->second;
 @}
 @end example
 
@@ -11882,7 +11895,7 @@ blocks could have their own variables, also named @code{x}, without
 any conflict between those variables.
 
 A variable declared inside a subblock has a scope limited to
-that subblock, 
+that subblock,
 
 @example
 @group
@@ -11956,7 +11969,7 @@ foo (int x)
 
 @noindent
 This prints the value of @code{x} the function parameter, rather than
-the value of the file-scope variable @code{x}.  However, 
+the value of the file-scope variable @code{x}.
 
 Labels (@pxref{goto Statement}) have @dfn{function} scope: each label
 is visible for the whole of the containing function body, both before
@@ -12244,7 +12257,7 @@ Normally we don't run any of these commands directly.  Instead we
 write a set of @dfn{make rules} for the program, then use the
 @command{make} program to recompile only the source files that need to
 be recompiled, by following those rules.  @xref{Top, The GNU Make
-Mamual, , Make, The GNU Make Manual}.
+Manual, , Make, The GNU Make Manual}.
 
 @node Directing Compilation
 @chapter Directing Compilation
@@ -12254,7 +12267,7 @@ meaning @emph{as such}, but rather direct the compiler how to treat
 some aspects of the program.
 
 @menu
-* Pragmas::                      Controling compilation of some constructs.
+* Pragmas::                      Controlling compilation of some constructs.
 * Static Assertions::            Compile-time tests for conditions.
 @end menu
 
@@ -12870,7 +12883,7 @@ A type compatible with @var{t}.  @xref{Compatible Types}.
 A signed or unsigned version of one of the above.
 
 @item
-A qualifed version of one of the above.
+A qualified version of one of the above.
 @xref{Type Qualifiers}.
 
 @item
@@ -12882,7 +12895,7 @@ d[2]; int i[4]; @} u; int i; @};} because there's a @code{double}
 inside it somewhere.
 
 @item
-A character type.                                                            
+A character type.
 @end itemize
 
 What do these rules say about the example in this subsection?
@@ -13041,7 +13054,7 @@ arithmetic errors, including division by zero and overflow.
 
 @item SIGBUS
 This signal is generated when an invalid pointer is dereferenced,
-typically the result of dereferencing an uninintalized pointer.  It is
+typically the result of dereferencing an uninitialized pointer.  It is
 similar to @code{SIGSEGV}, except that @code{SIGSEGV} indicates
 invalid access to valid memory, while @code{SIGBUS} indicates an
 attempt to access an invalid address.
