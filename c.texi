@@ -1479,19 +1479,20 @@ kind.
 
 In principle, you can write the function and variable names in a
 program, and the comments, in any human language.  C allows any kinds
-of characters in comments, and you can put non-ASCII characters into
-identifiers with a special prefix.  However, to enable programmers in
-all countries to understand and develop the program, it is best given
-today's circumstances to write identifiers and comments in
-English.
+of Unicode characters in comments, and you can put them into
+identifiers with a special prefix (@pxref{Unicode Character Codes}).
+However, to enable programmers in all countries to understand and
+develop the program, it is best under today's circumstances to write
+all identifiers and comments in English.
 
-English is the one language that programmers in all countries
-generally study.  If a program's names are in English, most
-programmers in Bangladesh, Belgium, Bolivia, Brazil, and Bulgaria can
-understand them.  Most programmers in those countries can speak
-English, or at least read it, but they do not read each other's
-languages at all.  In India, with so many languages, two programmers
-may have no common language other than English.
+English is the common language of programmers; in all countries,
+programmers generally learn English.  If names and comments in a
+program are written in English, most programmers in Bangladesh,
+Belgium, Bolivia, Brazil, Bulgaria and Burundi can understand them.
+In all those countries, most programmers can speak English, or at least
+read it, but they do not read each other's languages at all.  In
+India, with so many languages, two programmers may have no common
+language other than English.
 
 If you don't feel confident in writing English, do the best you can,
 and follow each English comment with a version in a language you
@@ -1500,7 +1501,7 @@ Someone will eventually do that.
 
 The program's user interface is a different matter.  We don't need to
 choose one language for that; it is easy to support multiple languages
-and let each user choose the language to use.  This requires writing
+and let each user choose the language for display.  This requires writing
 the program to support localization of its interface.  (The
 @code{gettext} package exists to support this; @pxref{Message
 Translation, The GNU C Library, , libc, The GNU C Library Reference
@@ -2622,7 +2623,7 @@ compute the same value (assuming @code{x} is a number).
 
 An array can be an lvalue (the rules above determine whether it is
 one), but using the array in an expression converts it automatically
-to a pointer to the first element.  The result of this conversion is
+to a pointer to the zeroth element.  The result of this conversion is
 not an lvalue.  Thus, if the variable @code{a} is an array, you can't
 use @code{a} by itself as the left operand of an assignment.  But you
 can assign to an element of @code{a}, such as @code{a[0]}.  That is an
@@ -2802,9 +2803,14 @@ prints lines containing 5, again 5, and 6.  The expression @code{i++}
 has the value 5, which is the value of @code{i} at the time,
 but it increments @code{i} from 5 to 6 just a little later.
 
-How much later is ``just a little later''?  That is flexible.  The
-increment has to happen by the next @dfn{sequence point}.  In simple cases,
-that means by the end of the statement.  @xref{Sequence Points}.
+How much later is ``just a little later''?  The compiler has some
+flexibility in deciding that.  The rule is that the increment has to
+happen by the next @dfn{sequence point}; in simple cases, that means
+by the end of the statement.  @xref{Sequence Points}.
+
+Regardless of precisely where the compiled code increments the value
+of @code{i}, the crucial thing is that the value of @code{i++} is the
+value that @code{i} has @emph{before} incrementing it.
 
 If a unary operator precedes a postincrement or postincrement expression,
 the increment nests inside:
@@ -2816,11 +2822,11 @@ the increment nests inside:
 That's the only order that makes sense; @code{-a} is not an lvalue, so
 it can't be incremented.
 
-The most common use of postincrement is with arrays.  Here's
-an example of using postincrement to access one element of an
-array and advance the index for the next access.  Compare
-this with the example @code{avg_of_double}, which is almost
-the same but doesn't use postincrement (@pxref{Array Example}).
+The most common use of postincrement is with arrays.  Here's an
+example of using postincrement to access one element of an array and
+advance the index for the next access.  Compare this with the example
+@code{avg_of_double} (@pxref{Array Example}), which is almost the same
+but doesn't use postincrement.
 
 @example
 double
@@ -4514,7 +4520,7 @@ than the number of characters written in it.
 
 As with any array in C, using the string constant in an expression
 converts the array to a pointer (@pxref{Pointers}) to the array's
-first element (@pxref{Accessing Array Elements}).  This pointer will
+zeroth element (@pxref{Accessing Array Elements}).  This pointer will
 have type @code{char *} because it points to an element of type
 @code{char}.  @code{char *} is an example of a type designator for a
 pointer type (@pxref{Pointer Type Designators}).  That type is used
@@ -4631,11 +4637,11 @@ contains character codes 128 and up, the results cannot be relied on.
 
 You can specify Unicode characters, for individual character constants
 or as part of string constants (@pxref{String Constants}), using
-escape sequences.  Use the @samp{\u} escape sequence with a 16-bit
-hexadecimal Unicode character code.  If the code value is too big for
-16 bits, use the @samp{\U} escape sequence with a 32-bit hexadecimal
-Unicode character code.  (These codes are called @dfn{universal
-character names}.)  For example,
+escape sequences; and even in C identifiers.  Use the @samp{\u} escape
+sequence with a 16-bit hexadecimal Unicode character code.  If the
+code value is too big for 16 bits, use the @samp{\U} escape sequence
+with a 32-bit hexadecimal Unicode character code.  (These codes are
+called @dfn{universal character names}.)  For example,
 
 @example
 \u6C34      /* @r{16-bit code (UTF-16)} */
@@ -4665,6 +4671,13 @@ this:
 @example
 u"\u6C34\u6C33"  /* @r{16-bit code} */
 U"\U0010ABCD"    /* @r{32-bit code} */
+@end example
+
+@noindent
+And in an identifier:
+
+@example
+int foo\u6C34bar = 0;
 @end example
 
 Codes in the range of @code{D800} through @code{DFFF} are not valid
@@ -4724,7 +4737,7 @@ There are three kinds of wide string constants, which differ in the
 data type used for each character in the string.  Each wide string
 constant is equivalent to an array of integers, but the data type of
 those integers depends on the kind of wide string.  Using the constant
-in an expression will convert the array to a pointer to its first
+in an expression will convert the array to a pointer to its zeroth
 element, as usual for arrays in C (@pxref{Accessing Array Elements}).
 For each kind of wide string constant, we state here what type that
 pointer will be.
@@ -4916,8 +4929,9 @@ double a[5];
 
 Now, @code{&i} gives the address of the variable @code{i}---a pointer
 value that points to @code{i}'s location---and @code{&a[3]} gives the
-address of the element 3 of @code{a}.  (It is actually the fourth
-element in the array, since the first element has index 0.)
+address of the element 3 of @code{a}.  (By the usual 1-origin
+numbering convention of ordinary English, it is actually the fourth
+element in the array, since the element at the start has index 0.)
 
 The address-of operator is unusual because it operates on a place to
 store a value (an lvalue, @pxref{Lvalues}), not on the value currently
@@ -6278,7 +6292,7 @@ fields, one by one.
 @cindex zero-length arrays
 @cindex length-zero arrays
 
-GNU C allows zero-length arrays.  They are useful as the last element
+GNU C allows zero-length arrays.  They are useful as the last field
 of a structure that is really a header for a variable-length object.
 Here's an example, where we construct a variable-size structure
 to hold a line which is @code{this_length} characters long:
@@ -6452,10 +6466,10 @@ as an array, because
 
 @example
 r1.data = r2.data;
-@end data
+@end example
 
 @noindent
-would convert the array objects (as always) to pointers to the initial
+would convert the array objects (as always) to pointers to the zeroth
 elements of the arrays (of type @code{struct record *}), and the
 assignment would be invalid because the left operand is not an lvalue.
 
@@ -6672,6 +6686,14 @@ expression (@pxref{Statement Exprs}):
   struct foo temp = @{x + y, 'a', 0@};
   temp;
 @})
+@end example
+
+You can also use field labels in the structure constructor to indicate
+which fields you're specifying values for, instead of using the order
+of the fields to specify that:
+
+@example
+(struct foo) {.a = x + y, .b = {'a', 0}}
 @end example
 
 You can also create a union value this way, but it is not especially
