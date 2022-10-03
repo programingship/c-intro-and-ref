@@ -532,6 +532,7 @@ int main (void)
 @{
   double x = 100.0;
   double y;
+  int n, k;
   for (n = 10; n <= 100; n += 10)
     @{
       y = x;
@@ -933,7 +934,7 @@ Infinities can be compared, and all Infinities of the same sign are
 equal: there is no notion in IEEE 754 arithmetic of different kinds of
 Infinities, as there are in some areas of mathematics.  Positive
 Infinity is larger than any finite value, and negative Infinity is
-smaller than finite value.
+smaller than any finite value.
 
 Infinities propagate in addition, subtraction, multiplication,
 and square root, but in division, they disappear, because of the
@@ -1127,7 +1128,7 @@ can write code like this example for interval addition of two reals:
     @{
       double hi, lo;
     @} v;
-  volatile double x, y;
+  extern volatile double x, y;
   int rule;
 
   rule = fegetround ();
